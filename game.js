@@ -7,26 +7,32 @@ let elementSize;
 window.addEventListener('load', setCanvasSize); //html charge from start
 window.addEventListener('resize', setCanvasSize);
 
-//Iniatize game
 function startGame() {
     console.log({canvasSize, elementSize});
 
     game.font = elementSize + 'px Verdana';
     game.textAlign = 'end';
 
-    for (let i = 1; i <= 10; i++) {
-        game.fillText(emojis['X'], elementSize * i, elementSize);
-    }
+    const map = maps[2];
+    const mapRows = map.trim().split('\n');
+    const mapRowsCols = mapRows.map(row => row.trim().split(''));
+    console.log({map, mapRows, mapRowsCols});
 
-    // game.&*()
-    //game.fillRect(0,0,100,100);
-    //game.clearRect(0,0,50,50);
-    //game.clearRect(0,0,50,100);
+    mapRowsCols.forEach((row, rowI) => {
+        row.forEach((col, colI) => {
+            const emoji = emojis[col];
+            const posX = elementSize * (colI + 1);
+            const posY = elementSize * (rowI + 1);
+            game.fillText(emoji, posX, posY);
+        });
+    });
 
-    /*game.font = '25px Verdana';
-    game.fillStyle = 'green';
-    game.textAlign = 'origin';
-    game.fillText('Platzi', 150, 50);*/
+    /*for (let row = 1; row <= 10; row++) {
+        for (let col = 1; col <= 10; col++) {
+            game.fillText(emojis[mapRowsCols[row-1][col-1]], elementSize * col, elementSize * row);
+        }
+    }*/
+
 }
 
 function setCanvasSize() {
